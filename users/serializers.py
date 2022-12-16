@@ -3,7 +3,7 @@ from rest_framework.validators import UniqueValidator
 from .models import User
 
 
-class UserSerializer(serializers.Serializer):
+""" class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(
         validators=[
@@ -30,4 +30,11 @@ class UserSerializer(serializers.Serializer):
 
         instance.save()
 
-        return instance
+        return instance """
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "password", "first_name", "last_name", "is_superuser"]
+        extra_kwargs = {"password": {"write_only": True}}
